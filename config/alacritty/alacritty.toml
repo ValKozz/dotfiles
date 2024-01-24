@@ -1,0 +1,77 @@
+shell = "bash"
+
+[env]
+WINIT_X11_SCALE_FACTOR = "1.3"
+
+# Colors (Solarized Dark)
+
+# Default colors
+[colors.primary]
+background = '#002b36'
+foreground = '#839496'
+dim_foreground = "#C6D0F5"
+bright_foreground = "#C6D0F5"
+
+
+[colors.hints.start]
+foreground = "#303446"
+background = "#E5C890"
+
+[colors.hints.end]
+foreground = "#303446"
+background = "#A5ADCE"
+
+
+
+# Normal colors
+[colors.normal]
+black   = '#073642'
+red     = '#dc322f'
+green   = '#859900'
+yellow  = '#b58900'
+blue    = '#268bd2'
+magenta = '#d33682'
+cyan    = '#2aa198'
+white   = '#eee8d5'
+
+# Bright colors
+[colors.bright]
+black   = '#002b36'
+red     = '#cb4b16'
+green   = '#586e75'
+yellow  = '#657b83'
+blue    = '#839496'
+magenta = '#6c71c4'
+cyan    = '#93a1a1'
+white   = '#fdf6e3'
+
+[colors.cursor]
+text = "#303446"
+
+
+[[colors.indexed_colors]]
+index = 16
+color = "#EF9F76"
+
+[[colors.indexed_colors]]
+index = 17
+color = "#F2D5CF"
+
+# Window 
+[window]
+blur = true
+opacity = 0.8
+decorations = "Full"
+startup_mode = "Windowed"
+decorations_theme_variant = "Dark"
+padding = {x = 5, y = 5}
+dynamic_padding = true
+
+# Font 
+[font]
+normal = {family = "JetBrainsMono Nerd Font Mono", style = "Regular"}
+bold = {family = "JetBrainsMono Nerd Font Mono", style = "Bold"}
+italic = {family = "JetBrainsMono Nerd Font Mono", style = "Italic"}
+bold_italic = {family = "JetBrainsMono Nerd Font Mono", style = "Bold Italic"}
+size = 11.25
+

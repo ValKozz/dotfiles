@@ -1,0 +1,12 @@
+[geometry]
+posx=962
+posy=34
+sizex=950
+sizey=1038
+
+[nitrogen]
+view=icon
+recurse=true
+sort=alpha
+icon_caps=false
+dirs=
