@@ -1,0 +1,180 @@
+/*
+   Author: Yusuf
+   Original theme name: Pop-dark
+ * Original Author: Primetoxinz
+ */
+* {
+    foreground:			 #f4e6ff;
+    background:			 #0e0019;
+    text-color:                  #f4e6ff;
+    background-color:            #0e0019;
+    lightbg:                     #21003c;
+    red:                         #d34328;
+    orange:                      #FFCC00; 
+    blue:                        #4b0082; 
+
+    selected-normal-foreground:  @foreground;
+    normal-foreground:           @foreground;
+    alternate-normal-background: @background;
+    selected-urgent-foreground:  @foreground;
+    urgent-foreground:           @foreground;
+    alternate-urgent-background: @background;
+    active-foreground:           @foreground;
+    selected-active-foreground:  @foreground;
+    alternate-normal-foreground: @foreground;
+    alternate-active-background: @blue;
+    bordercolor:                 @foreground;
+    normal-background:           @background;
+    selected-normal-background:  @blue;
+    separatorcolor:              @orange;
+    spacing:                     2;
+    urgent-background:           @red;
+    alternate-urgent-foreground: @foreground;
+    selected-urgent-background:  @red;
+    alternate-active-foreground: @foreground;
+    selected-active-background:  @blue;
+    active-background:           @orange;
+
+    padding: 0.1em;
+    margin: 0.1em;
+    border-radius: 0.2em;
+
+    scrollbar: true;
+}
+
+window {
+    font: "Fira Code 12";
+    border-radius:     0px 0px 0.1em 0.1em;
+    text-color: @foreground;
+    background-color: rgba ( 0, 0, 0, 0 % );
+    padding:    0.1em;
+    text-color: @bordercolor;
+    background-color: @background;
+    location: north;
+    anchor: north;
+    width: 40%;
+    y-offset: 0.9em;
+    transperancy: "real";
+}
+
+mainbox {
+    border:  0;
+    padding: 0;
+    margin: 1.2em;
+}
+
+message {
+    border:     0.1em dash 0px 0px ;
+    text-color: @separatorcolor;
+    padding:    0.2em ;
+}
+
+textbox {
+    text-color: @foreground;
+}
+
+inputbar{
+// enabled: false;
+}
+
+scrollbar{
+enabled: true;
+background-color: @lightbg;
+handle-width: 15px;
+handle-color: @foreground;
+}
+
+listview {
+    fixed-height: false;
+    dynamic: true;
+    border:       0.1em 0px 0px ;
+    padding:      0.1em 0px 0px ;
+    text-color: @separatorcolor;
+    scrollbar: true;
+    lines: 8;
+    cycle: true;
+}
+element {
+    border: 0;
+    padding: 0.1em;
+}
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+element.normal.normal {
+    text-color: @normal-foreground;
+    background-color: @normal-background;
+}
+element.normal.urgent {
+    text-color: @urgent-foreground;
+    background-color: @urgent-background;
+}
+element.normal.active {
+    text-color: @active-foreground;
+    background-color: @active-background;
+}
+element.selected.normal {
+    text-color: @selected-normal-foreground;
+    background-color: @selected-normal-background;
+}
+element.selected.urgent {
+    text-color: @selected-urgent-foreground;
+    background-color: @selected-urgent-background;
+}
+element.selected.active {
+    text-color: @selected-active-foreground;
+    background-color: @selected-active-background;
+}
+element.alternate.normal {
+    text-color: @alternate-normal-foreground;
+    background-color: @alternate-normal-background;
+}
+element.alternate.urgent {
+    text-color: @alternate-urgent-foreground;
+    background-color: @alternate-urgent-background;
+}
+element.alternate.active {
+    text-color: @alternate-active-foreground;
+    background-color: @alternate-active-background;
+}
+mode-switcher {
+    border: 1px dash 0px 0px ;
+}
+button selected {
+    text-color: @selected-normal-foreground;
+    background-color: @selected-normal-background;
+}
+inputbar {
+    spacing: 0;
+    border: 0px ;
+}
+button normal {
+    text-color: @foreground;
+}
+
+inputbar {
+padding: 0.5em;
+    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+
+entry {
+background-color: @lightbg;
+}
+
+textbox-prompt-colon {
+    expand:     false;
+    str:        ":";
+    margin:     0px 0.3em 0em 0em ;
+    text-color: @normal-foreground;
+}
+
+element-icon{
+enabled: true;
+background-color: rgba ( 0, 0, 0, 0 % );
+size: 1em;
+}
+
+mode-switcher {
+enabled: true;
+}

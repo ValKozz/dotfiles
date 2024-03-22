@@ -18,7 +18,7 @@ font pango:monospace 8
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
-
+# i3lock --noforki3lock --nofork
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
@@ -28,7 +28,9 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- exec ~/scripts/i3lock-solarized/bin/i3lock-solarized-dark.sh & sleep 10 && xset dpms force off 
+
+bindsym $mod+Shift+l "exec ~/scripts/i3lock-solarized/bin/i3lock-solarized-dark.sh & sleep 10 && xset dpms force off"
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -39,16 +41,16 @@ exec --no-startup-id nm-applet
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# bindsym XF86AudioMicMute ex~scripts/i3lock-solarized/bin/i3lock-solarized-dark.shec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Media volume controls
 bindsym XF86AudioMute exec amixer sset 'Master' toggle
 bindsym XF86AudioLowerVolume exec amixer sset 'Master' 5%-
 bindsym XF86AudioRaiseVolume exec amixer sset 'Master' 5%+
 
-# Backlight control - customq
-bindsym XF86MonBrightnessUp exec python3  ~/Scripts/backlight/light.py -inc 20
-bindsym XF86MonBrightnessDown exec python3  ~/Scripts/backlight/light.py -dec 20
+# Backlight control - custom
+bindsym XF86MonBrightnessUp exec python3  ~/scripts/backlight/light.py -inc 20
+bindsym XF86MonBrightnessDown exec python3  ~/scripts/backlight/light.py -dec 20
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -65,19 +67,25 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# DMENU Binds
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+#bindsym $mod+d exec --no-startup-id dmenu_run
+
+# ROFI Binds
 # A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindsym $mod+p exec "./scripts/wifi_rofi/rofi-wifi-menu.sh"
+bindsym $mod+o exec "blueman-manager"
+
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -86,10 +94,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -104,7 +112,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -167,6 +175,16 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+# Firefox bind
+bindsym $mod+b "exec Exec=env MOZ_X11_EGL=1 /usr/bin/firefox"
+
+# Temporary Picom fix for flickering and bad performance
+# kill picom binds
+bindsym $mod+k exec killall -q picom | notify-send killed: picom
+# resussetate picom 
+bindsym $mod+j exec picom -b | notify-send starting: picom...
+
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -196,7 +214,7 @@ bindsym $mod+r mode "resize"
 
 # GAPS
 # Inner gaps for all windows: space between two adjacent windows (or split containers).
-gaps inner 10
+gaps inner 15
 
 # Outer gaps for all windows: space along the screen edges.
 gaps outer 10
@@ -215,20 +233,25 @@ smart_borders on
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-}
+#bar {
+#        status_command i3status
+#}
 
 ### BODERS ###
 
 #border width
 default_border pixel 2
 
-#border colors
+
+# border colors
 client.focused #343746 #343746 #F8F8F2 #343746 #343746
 client.focused_inactive #343746 #343746 #F8F8F2 #21222C #21222C
 client.unfocused #343746 #343746 #F8F8F2 #21222C #21222C
 
 # EXECS
 exec nitrogen --restore &
-exec picom -b
+exec_always picom -b
+exec_always --no-startup-id ~/.config/i3/polybar.sh & 
+# Lang options
+exec_always setxkbmap -layout "us, bg" -variant ", phonetic"
+exec_always setxkbmap -option 'grp:alt_shift_toggle'
